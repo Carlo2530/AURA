@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <title>Aura – Dashboard Pre-stampa 3D</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <h1>Aura</h1>
+    <span>Dashboard pre-stampa 3D</span>
+  </header>
+
+  <main>
+    <section class="kpi">
+      <div class="card">
+        <h3>Temperatura</h3>
+        <p id="temp">-- °C</p>
+      </div>
+      <div class="card">
+        <h3>Umidità</h3>
+        <p id="humidity">-- %</p>
+      </div>
+      <div class="card">
+        <h3>Bobine in essiccazione</h3>
+        <p id="drying">--</p>
+      </div>
+      <div class="card alert">
+        <h3>Alert</h3>
+        <p id="alerts">--</p>
+      </div>
+    </section>
+
+    <section class="table-section">
+      <h2>Stato Bobine</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Materiale</th>
+            <th>Stato</th>
+            <th>Quantità</th>
+          </tr>
+        </thead>
+        <tbody id="spool-table"></tbody>
+      </table>
+    </section>
+
+    <section class="purchase">
+      <h2>Consigli d’acquisto</h2>
+      <ul id="purchase-list"></ul>
+    </section>
+  </main>
+
+  <script src="data.js"></script>
+</body>
+</html>

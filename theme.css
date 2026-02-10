@@ -1,0 +1,272 @@
+:root{
+  /* Aura Light */
+  --bg:#f6f7fb;
+  --panel: rgba(255,255,255,0.78);
+  --panelSolid:#ffffff;
+  --card: rgba(255,255,255,0.90);
+  --text:#0f172a;
+  --muted:#5b6476;
+  --line:#e5e7ef;
+
+  /* Stati (riusabili ovunque) */
+  --hi:#e63946;
+  --md:#f4a261;
+  --lo:#2a9d8f;
+  --info:#3a86ff;
+
+  --r:16px;
+}
+
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
+body{
+  margin:0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+  color:var(--text);
+  background:
+    radial-gradient(900px 520px at 20% 0%, #e9eeff 0%, transparent 55%),
+    radial-gradient(700px 420px at 90% 10%, #f6e9ff 0%, transparent 55%),
+    radial-gradient(700px 420px at 30% 100%, #e8fff6 0%, transparent 55%),
+    var(--bg);
+  background-attachment: fixed;
+}
+
+.wrap{ margin:0 auto; padding:22px; }
+
+.header{
+  display:flex; align-items:flex-start; justify-content:space-between; gap:16px;
+  padding: 22px 22px 0px 22px;
+  /*border:1px solid var(--line);*/
+  border-radius: 30px;
+  /*background: var(--panel);*/
+  backdrop-filter: blur(10px);
+}
+
+.header-nav{
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.brand .logo{
+  font-size:20px;
+  font-weight:1000;
+  letter-spacing:.02em;
+}
+
+.nav{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+}
+
+.nav-link{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:10px 14px;
+  border-radius: 999px;
+  border:1px solid var(--line);
+  background: rgba(255,255,255,0.55);
+  color: var(--text);
+  text-decoration:none;
+  font-weight: 900;
+  font-size: 13px;
+  letter-spacing: .01em;
+  box-shadow: 0 10px 26px rgba(16,10,20,0.06), inset 0 1px 0 rgba(255,255,255,0.55);
+}
+
+.nav-link:hover{
+  background: rgba(255,255,255,0.70);
+}
+
+.nav-link.is-active{
+  background: rgba(255,255,255,0.82);
+  box-shadow: 0 14px 36px rgba(16,10,20,0.10), inset 0 1px 0 rgba(255,255,255,0.60);
+}
+
+.title{ display:flex; flex-direction:column; gap:6px; }
+.title h1{ margin:0; font-size:22px; letter-spacing:0.2px; }
+.title p{ margin:0; color:var(--muted); font-size:13px; line-height:1.35; }
+
+.panel{
+  border:1px solid var(--line);
+  border-radius: var(--r);
+  background: var(--panel);
+  padding:14px;
+}
+
+.kpis{
+  display:flex;
+  gap:10px;
+  justify-content:flex-end;
+  flex-wrap:nowrap;
+  gap:10px;
+}
+
+.kpi{
+  padding:10px 12px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background: rgba(255,255,255,0.55);
+}
+
+.kpi .l{
+  font-size:11px;
+  color:var(--muted);
+}
+
+.kpi .v{
+  margin-top: 0;
+  font-size: 18px;
+  font-weight: 1000;
+  line-height: 1;
+}
+
+.input, .select{
+  width:100%;
+  padding:10px 12px;
+  border-radius:12px;
+  border:1px solid var(--line);
+  background: rgba(255,255,255,0.85);
+  color:var(--text);
+  outline:none;
+}
+.input:focus, .select:focus{
+  border-color: rgba(58,134,255,0.45);
+  box-shadow: 0 0 0 3px rgba(58,134,255,0.12);
+}
+
+.btn{
+  padding:10px 12px;
+  border-radius:12px;
+  border:1px solid var(--line);
+  background: rgba(255,255,255,0.75);
+  color:var(--text);
+  font-weight:800;
+  cursor:pointer;
+}
+.btn.primary{
+  background: #111827;
+  border-color: #111827;
+  color: #fff;
+}
+.btn:active{ transform: translateY(1px); }
+
+.chip, .tag{
+  border:1px solid var(--line);
+  background: rgba(255,255,255,0.65);
+  border-radius:999px;
+}
+
+.dot{ width:10px; height:10px; border-radius:50%; display:inline-block; }
+.dot.is-dry{ background: var(--md); }
+.dot.is-done{ background: var(--lo); }
+.dot.is-err{ background: var(--hi); }
+
+.muted{ color:var(--muted); font-size:12.5px; line-height:1.35; }
+.mono{
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New";
+  letter-spacing:.04em;
+}
+
+/* =========================
+   AURA Design System — Add-on
+   ========================= */
+
+:root{
+  --r-sm: 12px;
+  --r-md: 16px;   /* già usato come --r */
+  --r-lg: 22px;
+  --r-xl: 30px;
+
+  --shadow-1: 0 10px 26px rgba(16,10,20,0.06);
+  --shadow-2: 0 18px 50px rgba(16,10,20,0.08);
+  --shadow-3: 0 28px 76px rgba(16,10,20,0.10);
+
+  --glass: rgba(255,255,255,0.55);
+  --glass-strong: rgba(255,255,255,0.72);
+}
+
+/* Card “soft-depth” riutilizzabile */
+.card{
+  border-radius: var(--r-xl);
+  border: 1px solid var(--line);
+  background:
+    radial-gradient(760px 240px at 60% -20%, rgba(255,255,255,0.78), rgba(255,255,255,0.30) 55%, rgba(255,255,255,0.10) 100%),
+    linear-gradient(180deg, rgba(255,255,255,0.82), rgba(255,255,255,0.62));
+  box-shadow: var(--shadow-3), inset 0 1px 0 rgba(255,255,255,0.60);
+}
+
+/* Panel = contenitore più “tecnico” (glass) */
+.panel{
+  border-radius: var(--r-xl);
+  border: 1px solid var(--line);
+  background: var(--panel);
+  box-shadow: var(--shadow-1), inset 0 1px 0 rgba(255,255,255,0.55);
+}
+
+/* Buttons: aggiungiamo varianti che in acquisti usi già */
+.btn{
+  box-shadow: var(--shadow-1), inset 0 1px 0 rgba(255,255,255,0.55);
+  border-radius: 14px;
+}
+.btn.ghost{
+  background: transparent;
+  border-color: rgba(20,16,20,0.12);
+  box-shadow: none;
+}
+.btn.ghost:hover{
+  background: rgba(255,255,255,0.35);
+}
+
+/* KPI compatti: dot + numero (come vuoi tu in header) */
+.kpis-compact{ gap: 12px; }
+.kpi-compact{
+  padding: 10px 12px;
+  border-radius: 999px;
+  background: var(--glass);
+}
+/* Stock status dot (OK / Limite / Sotto soglia) */
+.state{
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+}
+
+.state-dot{
+  width:10px;
+  height:10px;
+  border-radius:999px;
+  display:inline-block;
+  border: 1px solid rgba(20,16,20,0.12);
+  box-shadow:
+    0 0 0 2px rgba(255,255,255,0.75),
+    0 0 16px rgba(0,0,0,0.10);
+}
+
+.state-dot.ok{
+  background: var(--lo);
+  box-shadow:
+    0 0 0 2px rgba(255,255,255,0.75),
+    0 0 16px color-mix(in srgb, var(--lo) 35%, transparent);
+}
+
+.state-dot.warn{
+  background: var(--md);
+  box-shadow:
+    0 0 0 2px rgba(255,255,255,0.75),
+    0 0 16px color-mix(in srgb, var(--md) 35%, transparent);
+}
+
+.state-dot.err{
+  background: var(--hi);
+  box-shadow:
+    0 0 0 2px rgba(255,255,255,0.75),
+    0 0 16px color-mix(in srgb, var(--hi) 35%, transparent);
+}

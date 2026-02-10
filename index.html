@@ -1,57 +1,126 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8" />
-  <title>Aura – Dashboard Pre-stampa 3D</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AURA — Home</title>
+
+  <link rel="stylesheet" href="../theme.css" />
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
 
-  <header>
-    <h1>Aura</h1>
-    <span>Dashboard pre-stampa 3D</span>
-  </header>
+  <!-- HEADER: tienilo IDENTICO a quello che hai già -->
+<header class="header header-nav">
+      <div class="brand">
+        <div class="logo">AURA</div>
+      </div>
 
-  <main>
-    <section class="kpi">
-      <div class="card">
-        <h3>Temperatura</h3>
-        <p id="temp">-- °C</p>
-      </div>
-      <div class="card">
-        <h3>Umidità</h3>
-        <p id="humidity">-- %</p>
-      </div>
-      <div class="card">
-        <h3>Bobine in essiccazione</h3>
-        <p id="drying">--</p>
-      </div>
-      <div class="card alert">
-        <h3>Alert</h3>
-        <p id="alerts">--</p>
-      </div>
-    </section>
+      <nav class="nav" aria-label="Navigazione">
+        <a class="nav-link" href="../index.html">Home</a>
+        <a class="nav-link" href="../magazzino/index.html">Magazzino</a>
+        <a class="nav-link is-active" href="./index.html">Acquisti</a>
+      </nav>
 
-    <section class="table-section">
-      <h2>Stato Bobine</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Materiale</th>
-            <th>Stato</th>
-            <th>Quantità</th>
-          </tr>
-        </thead>
-        <tbody id="spool-table"></tbody>
-      </table>
-    </section>
+      <!-- KPI compatti (dot + numero) -->
+      <div class="kpis kpis-compact" aria-label="Sintesi acquisti">
+        <div class="kpi kpi-compact" title="Suggerimenti">
+          <span class="dot warn"></span><span class="v" id="kLow">—</span>
+        </div>
+        <div class="kpi kpi-compact" title="Critici">
+          <span class="dot err"></span><span class="v" id="kErr">—</span>
+        </div>
+      </div>
+    </header>
+  <main class="wrap">
+    <div class="home-layout">
 
-    <section class="purchase">
-      <h2>Consigli d’acquisto</h2>
-      <ul id="purchase-list"></ul>
-    </section>
+      <!-- LEFT -->
+      <section class="home-left">
+
+        <!-- Sistema Operativo -->
+        <div class="sys card">
+          <div class="sys-left">
+            <div class="sys-icon" aria-hidden="true">
+              <span class="sys-icon-dot"></span>
+              <span class="sys-icon-check">✓</span>
+            </div>
+
+            <div class="sys-copy">
+              <div class="sys-title">Sistema Operativo</div>
+              <div class="sys-sub" id="sysSub">
+                — materiali pronti alla stampa · — da essiccare
+              </div>
+            </div>
+          </div>
+
+          <div class="sys-kpis">
+            <div class="sys-kpi">
+              <div class="sys-kpi-top">
+                <span class="dot ok"></span>
+                <span class="sys-kpi-num" id="kReady">—</span>
+              </div>
+              <div class="sys-kpi-label">pronti</div>
+            </div>
+
+            <div class="sys-kpi">
+              <div class="sys-kpi-top">
+                <span class="dot warn"></span>
+                <span class="sys-kpi-num" id="kDry">—</span>
+              </div>
+              <div class="sys-kpi-label">essiccare</div>
+            </div>
+
+            <div class="sys-kpi">
+              <div class="sys-kpi-top">
+                <span class="dot err"></span>
+                <span class="sys-kpi-num" id="kOut">—</span>
+              </div>
+              <div class="sys-kpi-label">fuori uso</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pronti -->
+        <div class="section-head">
+          <div class="h2">Pronti per la stampa</div>
+        </div>
+        <div class="ready-grid" id="readyGrid"></div>
+
+        <!-- Da gestire -->
+        <div class="section-head">
+          <div class="h2">Da gestire</div>
+          <div class="muted" id="manageNote">Tutto sotto controllo.</div>
+        </div>
+        <div class="manage-grid" id="manageGrid"></div>
+
+      </section>
+
+      <!-- RIGHT -->
+      <aside class="home-right">
+
+        <!-- Inventario -->
+        <div class="panel card">
+          <div class="panel-top">
+            <div class="h2">Stato inventario</div>
+          </div>
+          <div class="inv" id="invList"></div>
+        </div>
+
+        <!-- Prossimi giorni -->
+        <div class="panel card">
+          <div class="panel-top">
+            <div class="h2">Prossimi giorni</div>
+          </div>
+          <div class="next" id="nextList"></div>
+        </div>
+
+      </aside>
+
+    </div>
   </main>
 
-  <script src="data.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>

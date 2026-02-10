@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Aura — Overview Moduli</title>
+  <link rel="stylesheet" href="../theme.css">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header class="header header-nav">
+    <div class="brand">
+      <div class="logo">AURA</div>
+    </div>
+
+    <nav class="nav">
+      <a class="nav-link" href="../index.html">Home</a>
+      <a class="nav-link is-active" href="./index.html">Magazzino</a>
+      <a class="nav-link" href="../acquisti/index.html">Acquisti</a>
+    </nav>
+
+    <div class="kpis" aria-label="Stato moduli">
+      <div class="kpi" title="Da essiccare">
+        <span class="dot is-dry"></span>
+        <span class="v" id="kDry">—</span>
+      </div>
+      <div class="kpi" title="Essiccato">
+        <span class="dot is-done"></span>
+        <span class="v" id="kDone">—</span>
+      </div>
+      <div class="kpi" title="Errore">
+        <span class="dot is-err"></span>
+        <span class="v" id="kErr">—</span>
+      </div>
+    </div>
+  </header>
+
+<div class="wrap">
+  <main class="page">
+    <section class="grid" id="grid"></section>
+  </main>
+</div>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -12,12 +12,44 @@
 
 /* ---- System card ---- */
 .sys{
+  position: relative;
   padding:16px;
   display:flex;
   justify-content:space-between;
   align-items:center;
   gap:14px;
   border-radius: 30px;
+  overflow: hidden;
+}
+
+/* glow localizzato a sinistra (soft) */
+.sys::before{
+  content:"";
+  position:absolute;
+  inset:-40px;
+  background:
+    radial-gradient(520px 260px at 120px 55px,
+      color-mix(in srgb, var(--lo) 26%, transparent),
+      transparent 70%);
+  filter: blur(10px);
+  pointer-events:none;
+}
+
+/* micro highlight per dare “depth” sopra al glow */
+.sys::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: linear-gradient(180deg,
+    rgba(255,255,255,0.25),
+    rgba(255,255,255,0.05));
+  pointer-events:none;
+}
+
+/* assicura che il contenuto stia sopra ai layer */
+.sys > *{
+  position: relative;
+  z-index: 1;
 }
 
 .sys-left{
@@ -51,6 +83,31 @@
   left:10px;
   top:10px;
 }
+
+.sys-kpi-top{ gap:10px; }
+
+.sys-kpi-ico{
+  width:22px;
+  height:22px;
+  border-radius: 9px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:900;
+  font-size:13px;
+  background: rgba(255,255,255,0.65);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.60);
+  line-height:1;
+}
+
+.sys-kpi-ico.ok{ color: var(--lo); }
+.sys-kpi-ico.warn{ color: var(--md); }
+.sys-kpi-ico.err{ color: var(--hi); }
+
+/* i tuoi KPI usano .dot ok/warn/err ma in theme non sono definiti */
+.dot.ok{ background: var(--lo); box-shadow: 0 0 18px color-mix(in srgb, var(--lo) 35%, transparent); }
+.dot.warn{ background: var(--md); box-shadow: 0 0 18px color-mix(in srgb, var(--md) 35%, transparent); }
+.dot.err{ background: var(--hi); box-shadow: 0 0 18px color-mix(in srgb, var(--hi) 35%, transparent); }
 
 .sys-icon-check{
   font-weight:1000;
@@ -131,7 +188,15 @@
   border-radius: 28px;
   cursor:pointer;
   transition: transform .25s ease, box-shadow .25s ease;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 120px;
+  padding-bottom: 18px;
 }
+
 
 .ready-card:hover{ transform: translateY(-2px); }
 
@@ -172,17 +237,51 @@
 .badge-soft.dry::before{ background: var(--md); }
 .badge-soft.err::before{ background: var(--hi); }
 
-.icon-frame{
-  margin-top:12px;
+/* area centrale: non influisce sull’altezza perché è absolute */
+.aura-mark{
+  position: absolute;
+  left: 50%;
+  top: 52%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  opacity: .95;
+}
+
+/* dimensione logo */
+.aura-mark svg{
+  width: 170px;
   height: 170px;
-  border-radius: 22px;
-  border:1px solid rgba(20,16,20,0.08);
-  background:
-    radial-gradient(420px 220px at 55% 0%, rgba(255,255,255,0.76), rgba(255,255,255,0.18) 60%, rgba(255,255,255,0.08) 100%);
-  box-shadow: 0 22px 60px rgba(16,10,20,0.06), inset 0 1px 0 rgba(255,255,255,0.60);
-  display:grid;
-  place-items:center;
-  overflow:hidden;
+  display: block;
+}
+
+/* colore per stato (già coerente col tuo sistema) */
+.ready-card.done .aura-mark svg{ color: var(--lo); }
+.ready-card.dry  .aura-mark svg{ color: var(--md); }
+.ready-card.err  .aura-mark svg{ color: var(--hi); }
+
+/* glow calm */
+.ready-card .aura-mark svg{
+  filter: drop-shadow(0 18px 30px rgba(0,0,0,0.12));
+}
+
+/* assicurati che header/footer stiano sopra al logo */
+.ready-top,
+.ready-foot{
+  position: relative;
+  z-index: 2;
+}
+
+/* opzionale: evita che il logo copra troppo i testi */
+.ready-card::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: radial-gradient(420px 220px at 50% 55%,
+    rgba(255,255,255,0.72),
+    rgba(255,255,255,0.12) 60%,
+    rgba(255,255,255,0.06) 100%);
+  z-index: 1;
+  pointer-events:none;
 }
 
 .aura-icon{
@@ -197,7 +296,9 @@
 .ready-card.err .aura-icon{ color: var(--hi); opacity: .90; }
 
 .ready-foot{
-  margin-top:12px;
+  margin-top: auto;
+  position: relative;
+  z-index: 2;
   display:flex;
   align-items:center;
   justify-content:space-between;
@@ -394,6 +495,112 @@
   height:100%;
   width:0%;
   background: rgba(21,19,26,0.72);
+}
+
+.icon-frame svg{
+  width: 140px;
+  height: 140px;
+  display:block;
+}
+
+.aura-icon{
+  color: var(--lo);
+  filter: drop-shadow(0 22px 30px rgba(0,0,0,0.12));
+  opacity: .95;
+}
+
+.ready-card.dry .aura-icon{ color: var(--md); }
+.ready-card.err .aura-icon{ color: var(--hi); opacity: .92; }
+
+/* ===== SYS LEFT BADGE (come reference) ===== */
+.sys-badge{
+  width:56px;
+  height:56px;
+  position:relative;
+  display:grid;
+  place-items:center;
+  flex: 0 0 auto;
+}
+
+/* glow verde dietro */
+.sys-badge-glow{
+  position:absolute;
+  inset:-14px;
+  border-radius:999px;
+  background: radial-gradient(circle at 40% 35%,
+    color-mix(in srgb, var(--lo) 30%, transparent),
+    transparent 62%);
+  filter: blur(8px);
+  pointer-events:none;
+}
+
+/* ring glass (bordo morbido) */
+.sys-badge-ring{
+  position:absolute;
+  inset:0;
+  border-radius:999px;
+  border:1px solid rgba(20,16,20,0.10);
+  background: rgba(255,255,255,0.55);
+  box-shadow: 0 16px 44px rgba(16,10,20,0.08), inset 0 1px 0 rgba(255,255,255,0.65);
+  pointer-events:none;
+}
+
+/* nucleo interno (più “pieno” e pulito) */
+.sys-badge-core{
+  width:40px;
+  height:40px;
+  border-radius:999px;
+  display:grid;
+  place-items:center;
+  background: linear-gradient(180deg, rgba(255,255,255,0.88), rgba(255,255,255,0.62));
+  border: 1px solid rgba(20,16,20,0.10);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.70);
+}
+
+/* icona check */
+.sys-badge-ico{
+  width:20px;
+  height:20px;
+  color: rgba(21,19,26,0.80);
+}
+
+/* stato OK (verde) — se in futuro vuoi warning/err, cambi solo la classe */
+.sys-badge.ok .sys-badge-glow{
+  background: radial-gradient(circle at 40% 35%,
+    color-mix(in srgb, var(--lo) 30%, transparent),
+    transparent 62%);
+}
+
+/* ===== SYS KPI ICONS ===== */
+.sys-kpi-top{ gap:10px; }
+
+.sys-kpi-ico{
+  width:22px;
+  height:22px;
+  border-radius:999px;
+  display:grid;
+  place-items:center;
+  border:1px solid rgba(20,16,20,0.10);
+  background: rgba(255,255,255,0.65);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.60);
+}
+
+.sys-kpi-ico svg{
+  width:16px;
+  height:16px;
+}
+
+.sys-kpi-ico.ok{  color: var(--lo); }
+.sys-kpi-ico.warn{ color: var(--md); }
+.sys-kpi-ico.err{ color: var(--hi); }
+
+@keyframes auraPulse{
+  0%,100%{ filter: drop-shadow(0 18px 28px rgba(0,0,0,0.10)); transform: translateY(0); }
+  50%{ filter: drop-shadow(0 24px 38px rgba(0,0,0,0.14)); transform: translateY(-1px); }
+}
+
+.ready-card .aura-icon{
+  animation: auraPulse 4.2s ease-in-out infinite;
 }
 
 /* Responsive */

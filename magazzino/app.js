@@ -142,9 +142,6 @@ function render(mods, inlineSvgMarkup) {
       <div class="tile-body">
         <div class="silhouette-wrap">
           ${inlineSvgMarkup}
-          <div class="energy-ring"></div>
-          <div class="micro-spark spark-a"></div>
-          <div class="micro-spark spark-b"></div>
         </div>
       </div>
 

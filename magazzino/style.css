@@ -136,8 +136,8 @@
 }
 
 .silhouette{
-  width: 60%;
-  max-width: 160px;
+  width: 80%;
+  max-width: 380px;
   height:auto;
   opacity: 0.95;
   filter:
@@ -158,30 +158,6 @@
   stroke: none !important;
 }
 
-/* ring energia */
-.energy-ring{
-  position:absolute;
-  width: 66%;
-  height: 66%;
-  border-radius: 999px;
-  background: radial-gradient(circle at 50% 50%, currentColor 0%, rgba(0,0,0,0) 60%);
-  opacity: 0.18;
-  filter: blur(2px);
-  animation: ringPulse 4.6s ease-in-out infinite;
-}
-
-/* micro spark */
-.micro-spark{
-  position:absolute;
-  width: 8px; height: 8px;
-  border-radius: 999px;
-  background: rgba(255,255,255,0.85);
-  box-shadow: 0 0 20px rgba(255,255,255,0.35), 0 0 28px rgba(255,255,255,0.20);
-  opacity: 0.0;
-  animation: spark 5.4s ease-in-out infinite;
-}
-.spark-a{ transform: translate(58px,-44px); animation-delay: 0.8s; }
-.spark-b{ transform: translate(-62px,52px); animation-delay: 2.1s; }
 
 /* footer */
 .tile-foot{
@@ -206,6 +182,7 @@
   left:50%;
   bottom:0;
   transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.92);
 }
 
 /* progress bottom-right */
@@ -254,10 +231,5 @@
 @keyframes ringPulse{
   0%,100%{ transform: scale(1); opacity:0.16; }
   50%{ transform: scale(1.02); opacity:0.22; }
-}
-@keyframes spark{
-  0%,100%{ opacity:0.0; }
-  55%{ opacity:0.9; }
-  70%{ opacity:0.0; }
 }
 

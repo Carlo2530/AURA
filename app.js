@@ -1,4 +1,4 @@
-// AURA — HOME (system overview)
+// AURA — HOME (system overview) — usa sagoma reale inline (come Magazzino)
 
 const readyGrid = document.getElementById("readyGrid");
 const manageGrid = document.getElementById("manageGrid");
@@ -13,6 +13,10 @@ const sysSub = document.getElementById("sysSub");
 const kLow = document.getElementById("kLow"); // header (warn)
 const kErr = document.getElementById("kErr"); // header (err)
 const manageNote = document.getElementById("manageNote");
+
+// === PATH sagoma: usa quella di Magazzino (come mi hai detto che già funziona lì) ===
+const HOME_SVG_PATH = "../magazzino/assets/sagoma-progetto.svg";
+let INLINE_SVG = "";
 
 // --- Demo data ---
 const modules = [
@@ -40,15 +44,36 @@ const nextDays = [
   { when:"Tra 3 giorni", mat:"PLA da 11-essiccare", hours:"", p:25 },
 ];
 
-// --- SVG icon (lightweight, currentColor) ---
-function auraIconSVG(){
-  return `
-  <svg class="aura-icon" viewBox="0 0 100 100" aria-hidden="true">
-    <path d="M74 24c-10-10-28-10-38 0s-10 28 0 38 28 10 38 0l7 7c-14 14-38 14-52 0s-14-38 0-52 38-14 52 0l-7 7z" fill="currentColor" opacity="0.92"/>
-    <circle cx="70" cy="30" r="3.5" fill="currentColor"/>
-    <circle cx="32" cy="50" r="3.5" fill="currentColor" opacity="0.72"/>
-    <circle cx="56" cy="70" r="3.5" fill="currentColor" opacity="0.78"/>
-  </svg>`;
+// ---------------- SVG inline (Rhino-safe) ----------------
+async function loadInlineSVG(url){
+  const res = await fetch(url);
+  if(!res.ok) throw new Error(`Impossibile caricare SVG: ${url} (${res.status})`);
+  let svgText = await res.text();
+
+  // 1) rimuovi width/height esportati (pt) così CSS controlla la scala
+  svgText = svgText
+    .replace(/\swidth="[^"]*"/i, "")
+    .replace(/\sheight="[^"]*"/i, "");
+
+  // 2) forza fill = currentColor, elimina stroke
+  // (utile se Rhino esporta nero fisso o stroke)
+  svgText = svgText
+    .replace(/fill="none"/gi, 'fill="currentColor"')
+    .replace(/fill="#[0-9a-fA-F]{3,6}"/g, 'fill="currentColor"')
+    .replace(/stroke="#[0-9a-fA-F]{3,6}"/g, 'stroke="none"')
+    .replace(/stroke="[^"]*"/g, 'stroke="none"')
+    .replace(/stroke-width="[^"]*"/g, "");
+
+  // 3) aggiungi class sull'svg se manca, così prende le regole .aura-icon
+  svgText = svgText.replace(
+    /<svg\b([^>]*)>/i,
+    (m, attrs) => {
+      if (/class="/i.test(attrs)) return `<svg${attrs}>`;
+      return `<svg class="aura-icon"${attrs}>`;
+    }
+  );
+
+  return svgText;
 }
 
 function statusLabel(s){
@@ -91,9 +116,10 @@ function renderReady(){
           <div class="badge-soft done">${statusLabel(m.status)}</div>
         </div>
 
-        <div class="icon-frame">
-          ${auraIconSVG()}
+        <div class="aura-mark" aria-hidden="true">
+        ${INLINE_SVG}
         </div>
+
 
         <div class="ready-foot">
           <div class="ready-meta">
@@ -143,7 +169,6 @@ function renderManage(){
 function renderInventory(){
   invList.innerHTML = inventory.map(r=>{
     const p = pct((r.grams / r.max) * 100);
-    // barra “calma”: verde→arancio per visione, non alert aggressivo
     return `
       <div class="inv-row">
         <div class="inv-name">${r.mat}</div>
@@ -175,9 +200,30 @@ function renderNext(){
   }).join("");
 }
 
-// init
-renderSystem();
-renderReady();
-renderManage();
-renderInventory();
-renderNext();
+// init (carica SVG prima del render)
+(async function init(){
+  try{
+    INLINE_SVG = await loadInlineSVG(HOME_SVG_PATH);
+  }catch(e){
+    console.error(e);
+    // fallback: se manca il file, non blocchiamo la pagina
+    INLINE_SVG = `<svg class="aura-icon" viewBox="0 0 100 100" aria-hidden="true">
+      <circle cx="50" cy="50" r="26" fill="currentColor" opacity="0.9"></circle>
+    </svg>`;
+  }
+
+  (async function init(){
+  try{
+    INLINE_SVG = await loadInlineSVG(HOME_SVG_PATH);
+  }catch(e){
+    console.error(e);
+    INLINE_SVG = null;
+  }
+
+  renderSystem();
+  renderReady();
+  renderManage();
+  renderInventory();
+  renderNext();
+})();
+})();

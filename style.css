@@ -193,7 +193,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 120px;
+  min-height: 200px;
   padding-bottom: 18px;
 }
 
@@ -240,7 +240,7 @@
 /* area centrale: non influisce sull’altezza perché è absolute */
 .aura-mark{
   position: absolute;
-  left: 50%;
+  left: 45%;
   top: 52%;
   transform: translate(-50%, -50%);
   pointer-events: none;
@@ -312,6 +312,8 @@
   display:flex;
   gap:10px;
   align-items:center;
+  padding-left: 5px;
+  padding-top: 30px;
 }
 
 .ring{
@@ -439,7 +441,7 @@
   grid-column: 1 / -1;
   height:8px;
   border-radius:999px;
-  border:1px solid rgba(20,16,20,0.10);
+  border:1px solid rgba(20, 16, 20, 0.014);
   background: rgba(21,19,26,0.06);
   overflow:hidden;
 }
@@ -447,8 +449,8 @@
   height:100%;
   width:0%;
   background: linear-gradient(90deg,
-    color-mix(in srgb, var(--lo) 80%, white),
-    color-mix(in srgb, var(--md) 70%, white));
+    color-mix(in srgb, var(--lo) 5%, white),
+    color-mix(in srgb, var(--lo) 50%, white));
 }
 
 /* Next days */
